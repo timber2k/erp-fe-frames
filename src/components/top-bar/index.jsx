@@ -32,6 +32,7 @@ const StyledLayoutHeader = styled(Layout.Header)`
   border-top: 0px;
   position: relative;
   z-index: 10;
+  padding: 0 1rem;
 `;
 
 const StyedMenu = styled(Menu)`

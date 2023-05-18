@@ -1,9 +1,9 @@
 import { Layout } from "antd";
 import styled from "styled-components";
-import Sider from "antd/es/layout/Sider";
 
 import TopBar from "../../components/top-bar";
 import IntendedContent from "./content";
+import Sidebar from "../../components/sidebar";
 
 const IntendedLearners = () => (
   <ScreenLayout>
@@ -12,7 +12,7 @@ const IntendedLearners = () => (
       <ContentLayout>
         <IntendedContent />
       </ContentLayout>
-      <SideBar width={300} style={{ background: "transparent" }}></SideBar>
+      <Sidebar />
     </WrapperLayout>
   </ScreenLayout>
 );
@@ -22,31 +22,33 @@ const ScreenLayout = styled(Layout)`
   height: 100%;
   background: white;
   overflow: hidden;
-  border: 1px solid black;
 `;
 
 const WrapperLayout = styled(Layout)`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   padding: 0 1rem;
   padding-top: 5rem;
   padding-bottom: 1rem;
   display: flex;
-  border: 1px solid black;
+  flex-direction: column-reverse;
+  border: 2px solid black;
+  @media (min-width: 992px) {
+    flex-direction: row;
+    height: 100%;
+  }
 `;
 
 const ContentLayout = styled(Layout)`
   width: auto;
-  margin-right: 1rem;
   background: white;
-  border: 1px solid black;
-`;
-
-const SideBar = styled(Sider)`
-  background: white;
-  border: 1px solid black;
-  margin: 0;
+  border: 2px solid black;
+  border-radius: 0.25rem;
+  min-height: fit-content;
+  @media (min-width: 992px) {
+    margin-right: 1rem;
+  }
 `;
 
 export default IntendedLearners;
