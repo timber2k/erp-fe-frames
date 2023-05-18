@@ -58,7 +58,7 @@ const Sidebar = () => {
             <SidebarElementContent className="create-your-content">
               <NavigateElement>
                 <AiOutlineCheckSquare className="nav-icon" />
-                <span>Intended learners</span>
+                <span>Curriculum</span>
               </NavigateElement>
             </SidebarElementContent>
           </SidebarElement>
