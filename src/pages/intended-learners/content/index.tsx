@@ -90,11 +90,19 @@ const Content = styled(Layout.Content)`
     margin-bottom: 1rem;
   }
   @media (min-width: 992px) {
+    padding: 0 2rem;
+    padding-bottom: 1.5rem;
+    div {
+      margin-bottom: 0.75rem;
+      margin-top: 0.5rem;
+    }
+  }
+  @media (min-width: 1600px) {
     padding: 0 3rem;
     padding-bottom: 2.5rem;
     div {
-      margin-bottom: 1rem;
-      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+      margin-top: 1rem;
     }
   }
 `;
@@ -104,6 +112,10 @@ const Paragraph = styled(Typography.Paragraph)`
   line-height: 1.25rem;
   @media (min-width: 992px) {
     font-size: 1rem;
+    line-height: 1.25rem;
+  }
+  @media (min-width: 1368px) {
+    font-size: 1.25rem;
     line-height: 1.5rem;
   }
 `;
