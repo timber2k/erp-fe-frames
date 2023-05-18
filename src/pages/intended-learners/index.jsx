@@ -27,20 +27,28 @@ const ScreenLayout = styled(Layout)`
 const WrapperLayout = styled(Layout)`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   padding: 0 1rem;
   padding-top: 5rem;
   padding-bottom: 1rem;
   display: flex;
+  flex-direction: column-reverse;
   border: 2px solid black;
+  @media (min-width: 992px) {
+    flex-direction: row;
+    height: 100%;
+  }
 `;
 
 const ContentLayout = styled(Layout)`
   width: auto;
-  margin-right: 1rem;
   background: white;
   border: 2px solid black;
   border-radius: 0.25rem;
+  min-height: fit-content;
+  @media (min-width: 992px) {
+    margin-right: 1rem;
+  }
 `;
 
 export default IntendedLearners;

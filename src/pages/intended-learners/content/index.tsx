@@ -1,6 +1,6 @@
 import React from "react";
-import { Layout, Typography } from "antd";
 import styled from "styled-components";
+import { Layout, Typography } from "antd";
 import { AiOutlinePlus } from "react-icons/ai";
 
 const IntendedContent = () => (
@@ -9,15 +9,15 @@ const IntendedContent = () => (
       <PageTitle level={2}>Intended Learners</PageTitle>
     </PageTitleWrapper>
     <Content>
-      <ContentWrapper>
+      <div>
         <Paragraph>
           The following descriptions will be publicly visible on your Course
           Landing Page and will have a direct impact on your course performance.
           These descriptions will help learners decide if your course is right
           for them.
         </Paragraph>
-      </ContentWrapper>
-      <ContentWrapper>
+      </div>
+      <div>
         <Title>What will students learn in your course?</Title>
         <Paragraph>
           You must enter at least 4 learning objectives or outcomes that
@@ -27,13 +27,13 @@ const IntendedContent = () => (
           <input></input>
           <input></input>
           <input></input>
-          <AddResponse>
+          <AddResponses>
             <AiOutlinePlus />
             Add more to your responses
-          </AddResponse>
+          </AddResponses>
         </ContentForm>
-      </ContentWrapper>
-      <ContentWrapper>
+      </div>
+      <div>
         <Title>
           What are the requirements or prerequisites for taking your course?
         </Title>
@@ -44,13 +44,13 @@ const IntendedContent = () => (
         </Paragraph>
         <ContentForm>
           <input></input>
-          <AddResponse>
+          <AddResponses>
             <AiOutlinePlus />
             Add more to your responses
-          </AddResponse>
+          </AddResponses>
         </ContentForm>
-      </ContentWrapper>
-      <ContentWrapper>
+      </div>
+      <div>
         <Title>Who is this course for?</Title>
         <Paragraph>
           Write a clear description of the intended learners for your course who
@@ -59,12 +59,12 @@ const IntendedContent = () => (
         </Paragraph>
         <ContentForm>
           <input></input>
-          <AddResponse>
+          <AddResponses>
             <AiOutlinePlus />
             Add more to your responses
-          </AddResponse>
+          </AddResponses>
         </ContentForm>
-      </ContentWrapper>
+      </div>
     </Content>
   </>
 );
@@ -84,24 +84,38 @@ const PageTitle = styled(Typography.Title)`
 
 const Content = styled(Layout.Content)`
   width: 100%;
-  padding: 0 3rem;
-  padding-top: 3rem;
-  padding-bottom: 2.5rem;
-`;
-
-const ContentWrapper = styled.div`
-  margin-bottom: 2rem;
+  padding: 1rem;
+  min-height: fit-content;
+  div {
+    margin-bottom: 1rem;
+  }
+  @media (min-width: 992px) {
+    padding: 0 3rem;
+    padding-bottom: 2.5rem;
+    div {
+      margin-bottom: 1rem;
+      margin-top: 0.5rem;
+    }
+  }
 `;
 
 const Paragraph = styled(Typography.Paragraph)`
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  @media (min-width: 992px) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 `;
 
 const Title = styled.span`
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
+  @media (min-width: 992px) {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
 `;
 
 const ContentForm = styled.form`
@@ -114,13 +128,17 @@ const ContentForm = styled.form`
   }
 `;
 
-const AddResponse = styled.a`
+const AddResponses = styled.a`
   display: flex;
   align-items: center;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
   margin-top: 0.5rem;
   color: #5624d0;
+  @media (min-width: 992px) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 `;
 
 export default IntendedContent;
