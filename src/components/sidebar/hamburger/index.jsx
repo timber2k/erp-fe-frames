@@ -39,4 +39,8 @@ const Hamburger = ({ open, onClick }) => (
   </HamburgerIcon>
 );
 
+<<<<<<< HEAD
 export default Hamburger;
+=======
+export default Hamburger;
+>>>>>>> fe53668 (Update UI course messages)
