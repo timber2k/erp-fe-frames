@@ -130,7 +130,12 @@ const Tab2Content = () => {
             placeholder="Search Files By Name"
             allowClear
             className="search"
-            enterButton={<Button icon={<AiOutlineSearch />} />}
+            enterButton={
+              <Button
+                style={{ background: "black", color: "white" }}
+                icon={<AiOutlineSearch />}
+              />
+            }
             onSearch={handleSearch}
           />
         </Space>
@@ -163,6 +168,11 @@ const SearchWrapper = styled.div`
   margin-bottom: 1rem;
   display: flex;
   justify-content: flex-end;
+  .ant-btn {
+    border-radius: 0px;
+    border-start-end-radius: 0px;
+    border-end-end-radius: 0px;
+  }
 `;
 
 const Tab3Content = () => (
