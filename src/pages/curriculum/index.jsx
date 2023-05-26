@@ -18,7 +18,9 @@ const Curriculum = () => (
 
 const ScreenLayout = styled(Layout)`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  height: fit-content;
+  min-height: 100vh;
   background: white;
   overflow: hidden;
 `;
@@ -27,6 +29,7 @@ const WrapperLayout = styled(Layout)`
   position: absolute;
   width: 100%;
   height: fit-content;
+  min-height: 100vh;
   padding: 0 1rem;
   padding-top: 5rem;
   padding-bottom: 1rem;

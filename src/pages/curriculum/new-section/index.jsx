@@ -7,8 +7,26 @@ import {
   AiOutlinePlus,
 } from "react-icons/ai";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { useState } from "react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const NewSection = () => {
+  const [showItems, setShowItems] = useState(false);
+  const [showButtonSection, setShowButtonSection] = useState(false);
+  const [showLecture, setShowLecture] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [showCodingExercise, setShowCodingExercise] = useState(false);
+  const [showAssignment, setShowAssignment] = useState(false);
+
+  const editorConfig = {
+    ckfinder: {
+      options: {
+        height: "8rem",
+      },
+    },
+  };
+
   return (
     <>
       <PageTitleWrapper>
@@ -51,36 +69,169 @@ const NewSection = () => {
                   <IoMdArrowDropdown style={{ fontSize: "2rem" }} />
                 </AddContentWrapper>
               </Lecture>
-              <Button>
-                {" "}
-                <AiOutlinePlus />
-                Curriculum Item
-              </Button>
+              {!showItems ? (
+                <Button onClick={() => setShowItems(true)}>
+                  <AiOutlinePlus />
+                  Curriculum Item
+                </Button>
+              ) : (
+                <CurriculumItems>
+                  <Item onClick={() => setShowLecture(true)}>
+                    <AiOutlinePlus /> Lecture
+                  </Item>
+                  <Item onClick={() => setShowQuiz(true)}>
+                    <AiOutlinePlus /> Quiz
+                  </Item>
+                  <Item onClick={() => setShowCodingExercise(true)}>
+                    <AiOutlinePlus /> Coding Exercise
+                  </Item>
+                  <Item onClick={() => setShowAssignment(true)}>
+                    <AiOutlinePlus /> Assignment
+                  </Item>
+                </CurriculumItems>
+              )}
+
+              {showLecture && (
+                <AddLectureWrapper>
+                  <AddNewHeading>
+                    <span>New Lecture: </span>
+                    <input />
+                  </AddNewHeading>
+                  <ButtonGroup>
+                    <Button onClick={() => setShowLecture(false)}>
+                      Cancel
+                    </Button>
+                    <Button className="add-section">Add Lecture</Button>
+                  </ButtonGroup>
+                </AddLectureWrapper>
+              )}
+
+              {showQuiz && (
+                <AddLectureWrapper>
+                  <AddNewHeading>
+                    <span>New Quiz: </span>
+                    <input />
+                  </AddNewHeading>
+                  <DescriptionWrapper>
+                    <EditorWrapper>
+                      <CKEditor
+                        config={editorConfig}
+                        editor={ClassicEditor}
+                        data="<p>Add Quiz here!</p>"
+                      />
+                    </EditorWrapper>
+                  </DescriptionWrapper>
+                  <ButtonGroup>
+                    <Button onClick={() => setShowQuiz(false)}>Cancel</Button>
+                    <Button className="add-section">Add Quiz</Button>
+                  </ButtonGroup>
+                </AddLectureWrapper>
+              )}
+
+              {showCodingExercise && (
+                <AddLectureWrapper>
+                  <AddNewHeading>
+                    <span className="coding-exercise">
+                      New Coding Exercise:{" "}
+                    </span>
+                    <input />
+                  </AddNewHeading>
+                  <ButtonGroup>
+                    <Button onClick={() => setShowCodingExercise(false)}>
+                      Cancel
+                    </Button>
+                    <Button className="add-section">Add Coding Exercise</Button>
+                  </ButtonGroup>
+                </AddLectureWrapper>
+              )}
+
+              {showAssignment && (
+                <AddLectureWrapper>
+                  <AddNewHeading>
+                    <span>New Assignment: </span>
+                    <input />
+                  </AddNewHeading>
+                  <ButtonGroup>
+                    <Button onClick={() => setShowAssignment(false)}>
+                      Cancel
+                    </Button>
+                    <Button className="add-section">Add Assignment</Button>
+                  </ButtonGroup>
+                </AddLectureWrapper>
+              )}
             </LectureWrapper>
           </Section>
         </ContentWrapper>
-        <ContentWrapper>
-          <Section>
-            <NewSectionHeading>
-              <span>New Section: </span>
-              <input />
-            </NewSectionHeading>
-            <NewSectionHeading>
-              <span> </span>
-              <h5>
-                What will students be able to do at the end of this section?
-              </h5>
-            </NewSectionHeading>
-            <ButtonGroup>
-              <Button>Cancel</Button>
-              <Button className="add-section">Add Section</Button>
-            </ButtonGroup>
-          </Section>
-        </ContentWrapper>
+        {showButtonSection ? (
+          <ContentWrapper>
+            <Section>
+              <AddNewHeading>
+                <span>New Section: </span>
+                <input />
+              </AddNewHeading>
+              <AddNewHeading>
+                <span> </span>
+                <h5>
+                  What will students be able to do at the end of this section?
+                </h5>
+              </AddNewHeading>
+              <ButtonGroup>
+                <Button onClick={() => setShowButtonSection(false)}>
+                  Cancel
+                </Button>
+                <Button className="add-section">Add Section</Button>
+              </ButtonGroup>
+            </Section>
+          </ContentWrapper>
+        ) : (
+          <Button onClick={() => setShowButtonSection(true)}>
+            <AiOutlinePlus /> Section
+          </Button>
+        )}
       </Content>
     </>
   );
 };
+
+const EditorWrapper = styled.div`
+  /* margin-top: 1rem; */
+  border: 1px solid black;
+  min-height: 5rem;
+  .ck-editor__editable {
+    min-height: 5rem;
+  }
+  width: 80.5%;
+  margin-right: 2rem;
+`;
+
+const DescriptionWrapper = styled.div`
+  /* margin: 1rem; */
+  height: calc(100% - 2rem);
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const AddLectureWrapper = styled.div`
+  border: 1px solid black;
+  width: 100%;
+  min-height: 5rem;
+`;
+
+const Item = styled.span`
+  color: #5400dc;
+  padding: 0.5rem;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.25rem;
+`;
+
+const CurriculumItems = styled.div`
+  border: 1px dotted black;
+  min-height: 3rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+`;
 
 const ButtonGroup = styled.div`
   display: flex;
@@ -95,7 +246,7 @@ const ButtonGroup = styled.div`
   margin-right: 1.5rem;
 `;
 
-const NewSectionHeading = styled.div`
+const AddNewHeading = styled.div`
   display: flex;
   font-size: 1.25rem;
   line-height: 1.5rem;
@@ -108,6 +259,9 @@ const NewSectionHeading = styled.div`
   }
   input {
     width: 79%;
+  }
+  .coding-exercise {
+    width: 20%;
   }
 `;
 
@@ -139,7 +293,7 @@ const LectureHeading = styled.div`
 
 const Lecture = styled.div`
   border: 1px solid black;
-  height: 100px;
+  height: 200px;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -186,7 +340,8 @@ const PageTitle = styled(Typography.Title)`
 const Content = styled(Layout.Content)`
   width: 100%;
   padding: 1rem;
-  min-height: fit-content;
+  height: fit-content;
+  min-height: 100vh;
   div {
     margin-bottom: 1rem;
   }
@@ -223,7 +378,7 @@ const Paragraph = styled(Typography.Paragraph)`
 
 const Section = styled.div`
   border: 1px solid black;
-  height: 250px;
+  height: fit-content;
   width: 100%;
 `;
 
