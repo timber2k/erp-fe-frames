@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Layout, Typography, Tabs, Table, Input, Button, Space } from "antd";
+import { Layout, Typography } from "antd";
 import {
   AiFillEdit,
   AiFillDelete,
@@ -8,248 +8,20 @@ import {
   AiOutlinePlus,
   AiOutlineCaretDown,
   AiOutlineClose,
-  AiOutlineSearch,
 } from "react-icons/ai";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-const { Search } = Input;
-
-const editorConfig = {
-  ckfinder: {
-    options: {
-      height: "8rem",
-    },
-  },
-};
-
-const Tab1Content = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
-
-  return (
-    <>
-      <InputWrapper>
-        <FileName className="file-selected">
-          {selectedFile ? selectedFile.name : "No File Selected"}
-        </FileName>
-        <FileInput type="file" id="file" onChange={handleFileChange} />
-        <SelectButton htmlFor="file">Select File</SelectButton>
-      </InputWrapper>
-      <Note>
-        Note: A resource is for any type of document that can be used to help
-        students in the lecture. This file is going to be seen as a lecture
-        extra. Make sure everything is legible and the file size is less than 1
-        GiB.
-      </Note>
-    </>
-  );
-};
-
-const Note = styled.p`
-  margin-top: 1rem;
-  width: 100%;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  background-color: #d9d9d9;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-  border: 1px solid black;
-  .file-selected {
-    font-weight: 500;
-  }
-`;
-
-const FileInput = styled.input`
-  display: none;
-`;
-
-const SelectButton = styled.label`
-  color: black;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-left: 1px solid black;
-`;
-
-const FileName = styled.div`
-  margin-left: 10px;
-`;
-
-const data = [];
-
-const columns = [
-  {
-    title: "File Name",
-    dataIndex: "fileName",
-    key: "fileName",
-  },
-  {
-    title: "Type",
-    dataIndex: "type",
-    key: "type",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-  },
-  {
-    title: "Date",
-    dataIndex: "date",
-    key: "date",
-  },
-];
-
-const Tab2Content = () => {
-  const [searchText, setSearchText] = useState("");
-
-  const handleSearch = (value) => {
-    setSearchText(value);
-  };
-
-  const filteredData = data.filter((item) =>
-    item.fileName.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  return (
-    <>
-      <SearchWrapper>
-        <Space>
-          <Search
-            placeholder="Search Files By Name"
-            allowClear
-            className="search"
-            enterButton={
-              <Button
-                style={{ background: "black", color: "white" }}
-                icon={<AiOutlineSearch />}
-              />
-            }
-            onSearch={handleSearch}
-          />
-        </Space>
-      </SearchWrapper>
-      <TableWrapper>
-        <Table
-          columns={columns}
-          dataSource={filteredData}
-          pagination={false}
-          locale={{
-            emptyText: "No Results Found.",
-          }}
-        />
-      </TableWrapper>
-    </>
-  );
-};
-
-const TableWrapper = styled.div`
-  .ant-table-thead {
-    font-weight: 700;
-    font-size: 1.25rem;
-    line-height: 1.5rem;
-  }
-  border: 1px solid black;
-  margin-bottom: 1rem;
-`;
-
-const SearchWrapper = styled.div`
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: flex-end;
-  .ant-btn {
-    border-radius: 0px;
-    border-start-end-radius: 0px;
-    border-end-end-radius: 0px;
-  }
-`;
-
-const Tab3Content = () => (
-  <>
-    <ExternalResourcesWrapper>
-      <Input3Wrapper>
-        <label htmlFor="title">Title</label>
-        <input id="title" type="text" />
-      </Input3Wrapper>
-      <Input3Wrapper>
-        <label htmlFor="url">URL</label>
-        <input id="url" type="text" />
-      </Input3Wrapper>
-      <LinkButton>Add Link</LinkButton>
-    </ExternalResourcesWrapper>
-  </>
-);
-
-const LinkButton = styled.div`
-  background: black;
-  padding: 0.25rem 1rem;
-  cursor: pointer;
-  margin-left: auto;
-  margin-bottom: 1rem;
-  width: fit-content;
-  color: white;
-  font-size: 1.25rem;
-  line-height: 1.5rem;
-  font-weight: 700;
-`;
-
-const Input3Wrapper = styled.div`
-  font-size: 1rem;
-  line-height: 1.25rem;
-  & > label {
-    display: block;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-  & > input {
-    border: 1px solid black;
-    width: 100%;
-    height: 2rem;
-    font-size: 1rem;
-    line-height: 1.25rem;
-  }
-`;
-
-const ExternalResourcesWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  height: fit-content;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
-const items = [
-  {
-    key: "1",
-    label: `Downloadable file`,
-    children: <Tab1Content />,
-  },
-  {
-    key: "2",
-    label: `Add from library`,
-    children: <Tab2Content />,
-  },
-  {
-    key: "3",
-    label: `External Resources`,
-    children: <Tab3Content />,
-  },
-];
+import VideoContentType from "./components/video-content";
+import ArticleContentType from "./components/article-content";
+import SelectContentType from "./components/select-content";
+import LectureDescription from "./components/lecture-description";
+import LectureResources from "./components/lecture-resources";
 
 const CurriculumContent = () => {
   const [showDescription, setShowDescription] = useState(false);
   const [showResources, setShowResources] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+  const [showVideoType, setShowVideoType] = useState(false);
+  const [showArticleType, setShowArticleType] = useState(false);
 
   return (
     <>
@@ -282,91 +54,88 @@ const CurriculumContent = () => {
                   <AiFillEdit className="icon" />
                   <AiFillDelete className="icon" />
                 </LectureTitle>
-                {!showResources && (
+                {!showResources && !showContent && (
                   <ContentButton>
-                    <NewButton>
+                    <CustomButton
+                      onClick={() => {
+                        setShowContent(true),
+                          setShowDescription(false),
+                          setShowResources(false);
+                      }}
+                    >
                       <AiOutlinePlus className="icon" />
                       Content
-                    </NewButton>
+                    </CustomButton>
                     <AiOutlineCaretDown />
                   </ContentButton>
                 )}
               </LectureHeading>
               <LectureContent>
-                {!showDescription && !showResources && (
+                {!showDescription && !showResources && !showContent && (
                   <ButtonGroup>
-                    <NewButton onClick={() => setShowDescription(true)}>
+                    <CustomButton onClick={() => setShowDescription(true)}>
                       <AiOutlinePlus className="icon" />
                       Description
-                    </NewButton>
-                    <NewButton onClick={() => setShowResources(true)}>
+                    </CustomButton>
+                    <CustomButton onClick={() => setShowResources(true)}>
                       <AiOutlinePlus className="icon" />
                       Resources
-                    </NewButton>
+                    </CustomButton>
                   </ButtonGroup>
                 )}
                 {showDescription && (
-                  <LectureDescription>
-                    <DescriptionHeading>Lecture Description</DescriptionHeading>
-                    <EditorWrapper>
-                      <CKEditor
-                        config={editorConfig}
-                        editor={ClassicEditor}
-                        data="<p>Hello from CKEditor 5!</p>"
-                      />
-                    </EditorWrapper>
-                    <DescriptionButtons>
-                      <DescriptionButton
-                        onClick={() => setShowDescription(false)}
-                      >
-                        Cancel
-                      </DescriptionButton>
-                      <DescriptionButton
-                        onClick={() => setShowDescription(false)}
-                        className="save"
-                      >
-                        Save
-                      </DescriptionButton>
-                    </DescriptionButtons>
-                  </LectureDescription>
+                  <LectureDescription setShowDescription={setShowDescription} />
                 )}
                 {showResources && (
-                  <LectureResources>
+                  <LectureResources setShowResources={setShowResources} />
+                )}
+                {showContent && (
+                  <LectureResourcesWrapper>
                     <ResourcesTag>
-                      Add Resources
+                      {showVideoType
+                        ? "Add Video"
+                        : showArticleType
+                        ? "Add Article"
+                        : "Select content type"}
                       <AiOutlineClose
-                        onClick={() => setShowResources(false)}
+                        onClick={() => (
+                          setShowContent(false),
+                          setShowVideoType(false),
+                          setShowArticleType(false)
+                        )}
                         className="icon"
                       />
                     </ResourcesTag>
-                    <TabsWrapper>
-                      <Tabs defaultActiveKey="1" items={items} size="large" />
-                    </TabsWrapper>
-                  </LectureResources>
+                    {!showVideoType && !showArticleType && (
+                      <SelectContentType
+                        setShowArticleType={setShowArticleType}
+                        setShowVideoType={setShowVideoType}
+                      />
+                    )}
+                    {showArticleType && (
+                      <ArticleContentType
+                        setShowArticleType={setShowArticleType}
+                      />
+                    )}
+                    {showVideoType && <VideoContentType />}
+                  </LectureResourcesWrapper>
                 )}
               </LectureContent>
             </Lecture>
-            <NewButton className="add-curriculum">
+            <CustomButton className="add-curriculum">
               <AiOutlinePlus className="icon" />
               Curriculum Item
-            </NewButton>
+            </CustomButton>
           </Section>
         </div>
+        <CustomButton className="add-section">
+          <AiOutlinePlus className="icon" />
+          Section
+        </CustomButton>
       </Content>
     </>
   );
 };
-
-const TabsWrapper = styled.div`
-  position: relative;
-  margin: 0 1rem;
-  .ant-tabs {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
-    font-weight: 700;
-    width: 100%;
-  }
-`;
 
 const ResourcesTag = styled.div`
   position: absolute;
@@ -388,54 +157,17 @@ const ResourcesTag = styled.div`
   }
 `;
 
-const LectureResources = styled.div`
+const LectureResourcesWrapper = styled.div`
   position: relative;
   margin: 1rem;
   margin-top: 0;
   height: fit-content;
   border: 1px solid black;
   border-top: 0;
-`;
-
-const DescriptionButton = styled.div`
-  border: 1px solid black;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-`;
-
-const DescriptionButtons = styled.div`
-  margin-top: 1rem;
-  display: flex;
-  font-size: 1.25rem;
-  line-height: 1.5rem;
-  font-weight: 700;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 1rem;
-  .save {
-    background: black;
-    color: white;
+  .article {
+    margin-top: 0;
+    padding-top: 1rem;
   }
-`;
-
-const EditorWrapper = styled.div`
-  margin-top: 1rem;
-  border: 1px solid black;
-  min-height: 5rem;
-  .ck-editor__editable {
-    min-height: 5rem;
-  }
-`;
-
-const DescriptionHeading = styled.span`
-  font-size: 1.25rem;
-  line-height: 1.5rem;
-  font-weight: 700;
-`;
-
-const LectureDescription = styled.div`
-  margin: 1rem;
-  height: calc(100% - 2rem);
 `;
 
 const SectionHeading = styled.div`
@@ -478,7 +210,6 @@ const LectureTitle = styled.div`
 `;
 
 const LectureContent = styled.div`
-  // height: calc(100% - 4rem);
   height: fit-content;
 `;
 
@@ -491,7 +222,7 @@ const ButtonGroup = styled.div`
   justify-content: space-between;
 `;
 
-const NewButton = styled.div`
+const CustomButton = styled.div`
   cursor: pointer;
   border: 1px solid black;
   width: 100%;
@@ -547,6 +278,10 @@ const Content = styled(Layout.Content)`
   width: 100%;
   padding: 1rem;
   min-height: fit-content;
+  .add-section {
+    width: fit-content;
+    padding: 0.25rem 1rem;
+  }
   .add-curriculum {
     width: fit-content;
     margin-left: 1rem;
