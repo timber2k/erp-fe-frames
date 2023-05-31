@@ -22,7 +22,9 @@ const LectureDescription = ({ setShowDescription }) => (
       />
     </EditorWrapper>
     <ButtonWrapper>
-      <Button onClick={() => setShowDescription(false)}>Cancel</Button>
+      <Button className="cancel" onClick={() => setShowDescription(false)}>
+        Cancel
+      </Button>
       <Button onClick={() => setShowDescription(false)} className="save">
         Save
       </Button>
@@ -59,6 +61,10 @@ const ButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   gap: 1rem;
+  .cancel {
+    background: white;
+    color: black;
+  }
 `;
 
 const Button = styled.div`
