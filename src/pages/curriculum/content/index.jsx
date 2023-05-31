@@ -8,6 +8,7 @@ import {
   AiOutlinePlus,
   AiOutlineCaretDown,
   AiOutlineClose,
+  AiOutlineCaretUp,
 } from "react-icons/ai";
 
 import VideoContentType from "./components/video-content";
@@ -15,6 +16,7 @@ import ArticleContentType from "./components/article-content";
 import SelectContentType from "./components/select-content";
 import LectureDescription from "./components/lecture-description";
 import LectureResources from "./components/lecture-resources";
+import CurriculumItems from "./components/curriculum-items";
 
 const CurriculumContent = () => {
   const [showDescription, setShowDescription] = useState(false);
@@ -22,6 +24,12 @@ const CurriculumContent = () => {
   const [showContent, setShowContent] = useState(false);
   const [showVideoType, setShowVideoType] = useState(false);
   const [showArticleType, setShowArticleType] = useState(false);
+  const [showLecture, setShowLecture] = useState(false);
+  const [showItems, setShowItems] = useState(false);
+  const [newLecture, setNewLecture] = useState(false);
+  const [newQuiz, setNewQuiz] = useState(false);
+  const [newCodingExercises, setNewCodingExercises] = useState(false);
+  const [newAssignment, setNewAssignment] = useState(false);
 
   return (
     <>
@@ -60,72 +68,102 @@ const CurriculumContent = () => {
                       onClick={() => {
                         setShowContent(true),
                           setShowDescription(false),
-                          setShowResources(false);
+                          setShowResources(false),
+                          setShowLecture(true);
                       }}
                     >
                       <AiOutlinePlus className="icon" />
                       Content
                     </CustomButton>
-                    <AiOutlineCaretDown />
+                    <ShowContentButton
+                      onClick={() => setShowLecture(!showLecture)}
+                    >
+                      {showLecture ? (
+                        <AiOutlineCaretDown />
+                      ) : (
+                        <AiOutlineCaretUp />
+                      )}
+                    </ShowContentButton>
                   </ContentButton>
                 )}
               </LectureHeading>
-              <LectureContent>
-                {!showDescription && !showResources && !showContent && (
-                  <ButtonGroup>
-                    <CustomButton onClick={() => setShowDescription(true)}>
-                      <AiOutlinePlus className="icon" />
-                      Description
-                    </CustomButton>
-                    <CustomButton onClick={() => setShowResources(true)}>
-                      <AiOutlinePlus className="icon" />
-                      Resources
-                    </CustomButton>
-                  </ButtonGroup>
-                )}
-                {showDescription && (
-                  <LectureDescription setShowDescription={setShowDescription} />
-                )}
-                {showResources && (
-                  <LectureResources setShowResources={setShowResources} />
-                )}
-                {showContent && (
-                  <LectureResourcesWrapper>
-                    <ResourcesTag>
-                      {showVideoType
-                        ? "Add Video"
-                        : showArticleType
-                        ? "Add Article"
-                        : "Select content type"}
-                      <AiOutlineClose
-                        onClick={() => (
-                          setShowContent(false),
-                          setShowVideoType(false),
-                          setShowArticleType(false)
-                        )}
-                        className="icon"
-                      />
-                    </ResourcesTag>
-                    {!showVideoType && !showArticleType && (
-                      <SelectContentType
-                        setShowArticleType={setShowArticleType}
-                        setShowVideoType={setShowVideoType}
-                      />
-                    )}
-                    {showArticleType && (
-                      <ArticleContentType
-                        setShowArticleType={setShowArticleType}
-                      />
-                    )}
-                    {showVideoType && <VideoContentType />}
-                  </LectureResourcesWrapper>
-                )}
-              </LectureContent>
+              {showLecture && (
+                <LectureContent>
+                  {!showDescription && !showResources && !showContent && (
+                    <ButtonGroup>
+                      <CustomButton onClick={() => setShowDescription(true)}>
+                        <AiOutlinePlus className="icon" />
+                        Description
+                      </CustomButton>
+                      <CustomButton onClick={() => setShowResources(true)}>
+                        <AiOutlinePlus className="icon" />
+                        Resources
+                      </CustomButton>
+                    </ButtonGroup>
+                  )}
+                  {showDescription && (
+                    <LectureDescription
+                      setShowDescription={setShowDescription}
+                    />
+                  )}
+                  {showResources && (
+                    <LectureResources setShowResources={setShowResources} />
+                  )}
+                  {showContent && (
+                    <LectureResourcesWrapper>
+                      <ResourcesTag>
+                        {showVideoType
+                          ? "Add Video"
+                          : showArticleType
+                          ? "Add Article"
+                          : "Select content type"}
+                        <AiOutlineClose
+                          onClick={() => (
+                            setShowContent(false),
+                            setShowVideoType(false),
+                            setShowArticleType(false)
+                          )}
+                          className="icon"
+                        />
+                      </ResourcesTag>
+                      {!showVideoType && !showArticleType && (
+                        <SelectContentType
+                          setShowArticleType={setShowArticleType}
+                          setShowVideoType={setShowVideoType}
+                        />
+                      )}
+                      {showArticleType && (
+                        <ArticleContentType
+                          setShowArticleType={setShowArticleType}
+                        />
+                      )}
+                      {showVideoType && <VideoContentType />}
+                    </LectureResourcesWrapper>
+                  )}
+                </LectureContent>
+              )}
             </Lecture>
-            <CustomButton className="add-curriculum">
-              <AiOutlinePlus className="icon" />
-              Curriculum Item
-            </CustomButton>
+            {showItems ? (
+              <CurriculumItems
+                newLecture={newLecture}
+                newQuiz={newQuiz}
+                newCodingExercises={newCodingExercises}
+                newAssignment={newAssignment}
+                setNewLecture={setNewLecture}
+                setNewQuiz={setNewQuiz}
+                setNewCodingExercises={setNewCodingExercises}
+                setNewAssignment={setNewAssignment}
+                setShowItems={setShowItems}
+              />
+            ) : (
+              <CustomButton
+                className="add-curriculum"
+                onClick={() => setShowItems(true)}
+              >
+                <AiOutlinePlus className="icon" />
+                Curriculum Item
+              </CustomButton>
+            )}
           </Section>
         </div>
         <CustomButton className="add-section">
@@ -136,6 +174,10 @@ const CurriculumContent = () => {
     </>
   );
 };
+
+const ShowContentButton = styled.div`
+  cursor: pointer;
+`;
 
 const ResourcesTag = styled.div`
   position: absolute;
