@@ -8,23 +8,19 @@ const HamburgerIcon = styled.div`
   width: 24px;
   height: 20px;
   cursor: pointer;
-
   div {
     width: 100%;
     height: 2px;
-    background-color: #333;
+    background-color: #fff;
     transition: all 0.3s ease-in-out;
   }
-
   div:nth-child(1) {
     transform: ${({ open }) =>
       open ? "rotate(45deg) translate(4px, 4px)" : "none"};
   }
-
   div:nth-child(2) {
     opacity: ${({ open }) => (open ? 0 : 1)};
   }
-
   div:nth-child(3) {
     transform: ${({ open }) =>
       open ? "rotate(-45deg) translate(4px, -4px)" : "none"};
