@@ -13,7 +13,7 @@ import { dashboardUploadImage } from "../../assets";
 import Hamburger from "../../components/sidebar/hamburger";
 
 const Dashboard = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -155,6 +155,9 @@ const DropDownList = styled.div`
   flex-direction: column;
   gap: 1rem;
   padding: 1rem 0;
+  @media (min-width: 768px) {
+    display: none;
+  }
 `;
 
 const DropListWrapper = styled.div`

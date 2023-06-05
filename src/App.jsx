@@ -6,6 +6,7 @@ import CourseLanding from "./pages/course-landing";
 import CreateCourseWizard from "./pages/create-course-wizard";
 import Curriculum from "./pages/curriculum";
 import Dashboard from "./pages/dashboard";
+import CourseSettings from "./pages/course-settings";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             component={CreateCourseWizard}
           />
           <Route exact path="/curriculum" component={Curriculum} />
+          <Route exact path="/course-settings" component={CourseSettings} />
         </Switch>
       </Router>
     </>

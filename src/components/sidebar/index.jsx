@@ -81,9 +81,11 @@ const StyledSidebar = styled.div`
   background: transparent;
   margin-bottom: 1rem;
   @media (min-width: 992px) {
-    height: 100%;
-    min-width: 400px;
+    min-width: 350px;
     margin: 0;
+  }
+  @media (min-width: 1600px) {
+    height: 100%;
   }
 `;
 
